@@ -50,6 +50,8 @@
         line-height: 85px;
         margin: 0 auto;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        /* Color verde por defecto para todos */
+        background-color: #2ecc71;
       }
       .label {
         font-size: 11px;
@@ -58,16 +60,6 @@
         margin-bottom: 8px;
         text-transform: uppercase;
         letter-spacing: 1px;
-      }
-
-      .bg-diseno {
-        background-color: #e67e22;
-      }
-      .bg-zoftinium {
-        background-color: #3498db;
-      }
-      .bg-merpes {
-        background-color: #2ecc71;
       }
 
       /* Tabla de Detalles */
@@ -144,15 +136,15 @@
             <tr>
               <td align="center" width="33%">
                 <div class="label">Diseño</div>
-                <div class="circle bg-diseno">{{ diseño_pct }}%</div>
+                <div class="circle">{{ diseño_pct }}%</div>
               </td>
               <td align="center" width="33%">
                 <div class="label">Zoftinium</div>
-                <div class="circle bg-zoftinium">{{ zoftinium_pct }}%</div>
+                <div class="circle">{{ zoftinium_pct }}%</div>
               </td>
               <td align="center" width="33%">
                 <div class="label">Merpes</div>
-                <div class="circle bg-merpes">{{ merpes_pct }}%</div>
+                <div class="circle">{{ merpes_pct }}%</div>
               </td>
             </tr>
           </table>
