@@ -24,10 +24,10 @@
         text-align: center;
       }
 
-      /* ── ENCABEZADO TEXTUAL (reemplaza imagen) ── */
+      /* ── BLOQUE TEXTUAL DEBAJO DEL ENCABEZADO ── */
       .encabezado-texto {
         background-color: #ffffff;
-        padding: 30px 25px 24px 25px;
+        padding: 24px 25px 24px 25px;
         text-align: center;
         border-bottom: 3px solid #f0f0f0;
       }
@@ -198,7 +198,18 @@
   </head>
   <body>
     <table class="main-table" align="center">
-      <!-- ── ENCABEZADO TEXTUAL (reemplaza imagen) ── -->
+      <!-- ── IMAGEN ENCABEZADO (siempre visible) ── -->
+      <tr>
+        <td>
+          <img
+            src="data:image/png;base64,{{ imagenes.encabezado }}"
+            width="100%"
+            style="display: block"
+          />
+        </td>
+      </tr>
+
+      <!-- ── BLOQUE TEXTUAL: CONOCE EL ESTADO / CAMPAÑA ACTIVA ── -->
       <tr>
         <td class="encabezado-texto">
           <p class="encabezado-subtitulo">Conoce el estado de</p>
@@ -235,11 +246,11 @@
           <!-- Sección Recursos -->
           <div class="recursos-wrapper">
             <div class="recursos-header-box">
-              <img
+              <!-- <img
                 src="data:image/png;base64,{{ imagenes.icono1 }}"
                 style="width: 35px; height: auto"
                 alt="Icono recursos"
-              />
+              /> -->
             </div>
             <table class="recursos-table">
               <thead>
@@ -278,11 +289,11 @@
           <!-- Recomendaciones -->
           <div class="rec-dark-box">
             <div class="rec-header">
-              <img
+              <!-- <img
                 src="data:image/png;base64,{{ imagenes.icono2 }}"
                 style="width: 35px; height: auto"
                 alt="Icono recomendaciones"
-              />
+              /> -->
               <span class="rec-title-text">Recomendaciones</span>
             </div>
             <div class="rec-list">
