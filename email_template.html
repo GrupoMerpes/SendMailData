@@ -24,27 +24,53 @@
         text-align: center;
       }
 
-      /* Título con Imagen de Fondo */
-      .titulo-container {
-        width: 100%;
-        max-width: 500px;
-        margin: 10px auto 0 auto;
-        background-image: url("data:image/png;base64,{{ imagenes.titulo }}");
-        background-size: contain;
-        background-repeat: no-repeat;
-        background-position: center;
+      /* ── ENCABEZADO TEXTUAL (reemplaza imagen) ── */
+      .encabezado-texto {
+        background-color: #ffffff;
+        padding: 30px 25px 24px 25px;
+        text-align: center;
+        border-bottom: 3px solid #f0f0f0;
       }
-      .cliente-texto {
-        padding-top: 105px;
-        padding-bottom: 25px;
-        color: #1b1b1b;
-        font-weight: 800;
-        font-size: 19px;
+      .encabezado-subtitulo {
+        font-size: 12px;
+        font-weight: 600;
+        color: #7f8c8d;
         text-transform: uppercase;
-        letter-spacing: 0.5px;
+        letter-spacing: 2px;
+        margin: 0 0 6px 0;
+      }
+      .encabezado-titulo {
+        font-size: 26px;
+        font-weight: 800;
+        color: #1b1b1b;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        margin: 0 0 18px 0;
+        line-height: 1.2;
+      }
+      .encabezado-campana-badge {
+        display: inline-block;
+        background-color: #2ecc71;
+        border-radius: 6px;
+        padding: 8px 22px;
+      }
+      .encabezado-campana-label {
+        font-size: 10px;
+        font-weight: 700;
+        color: #1a6e3c;
+        text-transform: uppercase;
+        letter-spacing: 1.5px;
+        display: block;
+        margin-bottom: 3px;
+      }
+      .encabezado-campana-nombre {
+        font-size: 15px;
+        font-weight: 800;
+        color: #0f3d22;
+        display: block;
       }
 
-      /* Círculos Verdes */
+      /* Círculos */
       .circle-container {
         margin: 20px 0;
       }
@@ -67,7 +93,32 @@
         text-transform: uppercase;
       }
 
-      /* SECCIÓN TABLA RECURSOS - FONDO OSCURO */
+      /* Tabla de Detalles */
+      .details-container {
+        background-color: #2c3e50;
+        border-radius: 12px;
+        margin-top: 25px;
+        padding: 15px;
+      }
+      .details-table {
+        width: 100%;
+        border-collapse: collapse;
+        color: #ffffff;
+      }
+      .details-table th {
+        color: #1abc9c;
+        font-size: 11px;
+        text-transform: uppercase;
+        padding: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .details-table td {
+        padding: 12px 10px;
+        font-size: 13px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* Sección Recursos #2d2c2c */
       .recursos-wrapper {
         background-color: #2d2c2c;
         border-radius: 12px;
@@ -77,12 +128,6 @@
       .recursos-header-box {
         padding: 20px 0 10px 0;
         text-align: center;
-      }
-      /* CLASE CRÍTICA: Controla el tamaño del icono */
-      .recursos-icon-header {
-        width: 35px;
-        height: auto;
-        display: inline-block;
       }
       .recursos-table {
         width: 100%;
@@ -108,7 +153,7 @@
         font-weight: 600;
       }
 
-      /* SECCIÓN RECOMENDACIONES - FONDO BLANCO */
+      /* Recomendaciones - fondo blanco, texto negro */
       .rec-dark-box {
         background-color: #ffffff;
         border-radius: 12px;
@@ -153,22 +198,23 @@
   </head>
   <body>
     <table class="main-table" align="center">
+      <!-- ── ENCABEZADO TEXTUAL (reemplaza imagen) ── -->
       <tr>
-        <td>
-          <img
-            src="data:image/png;base64,{{ imagenes.encabezado }}"
-            width="100%"
-            style="display: block"
-          />
+        <td class="encabezado-texto">
+          <p class="encabezado-subtitulo">Conoce el estado de</p>
+          <p class="encabezado-titulo">Tus requerimientos</p>
+          <div class="encabezado-campana-badge">
+            <span class="encabezado-campana-label">Campaña activa</span>
+            <span class="encabezado-campana-nombre"
+              >{{ cliente }} - {{ area }}</span
+            >
+          </div>
         </td>
       </tr>
 
       <tr>
         <td class="content">
-          <div class="titulo-container">
-            <div class="cliente-texto">{{ cliente }}</div>
-          </div>
-
+          <!-- Círculos de porcentaje -->
           <table width="100%" class="circle-container">
             <tr>
               <td align="center" width="33%">
@@ -186,9 +232,14 @@
             </tr>
           </table>
 
+          <!-- Sección Recursos -->
           <div class="recursos-wrapper">
             <div class="recursos-header-box">
-              <img src="cid:icono1" style="width: 35px; height: auto" />
+              <img
+                src="data:image/png;base64,{{ imagenes.icono1 }}"
+                style="width: 35px; height: auto"
+                alt="Icono recursos"
+              />
             </div>
             <table class="recursos-table">
               <thead>
@@ -224,12 +275,16 @@
             </table>
           </div>
 
+          <!-- Recomendaciones -->
           <div class="rec-dark-box">
             <div class="rec-header">
-              <img src="cid:icono2" style="width: 35px; height: auto" />
+              <img
+                src="data:image/png;base64,{{ imagenes.icono2 }}"
+                style="width: 35px; height: auto"
+                alt="Icono recomendaciones"
+              />
               <span class="rec-title-text">Recomendaciones</span>
             </div>
-
             <div class="rec-list">
               <div class="rec-item-new">
                 <span class="rec-bullet">▶</span>
@@ -252,11 +307,26 @@
                   con un excelente servicio.</span
                 >
               </div>
+              <div class="rec-item-new">
+                <span class="rec-bullet">▶</span>
+                <span class="rec-text"
+                  >No mal gastes las piezas gráficas, sácales el mayor
+                  provecho.</span
+                >
+              </div>
+              <div class="rec-item-new">
+                <span class="rec-bullet">▶</span>
+                <span class="rec-text"
+                  >Verifica que los cargues de data que hagas a Kupaa sean los
+                  correctos, así mitigas el consumo de soporte.</span
+                >
+              </div>
             </div>
           </div>
         </td>
       </tr>
 
+      <!-- Footer -->
       <tr>
         <td>
           <img
