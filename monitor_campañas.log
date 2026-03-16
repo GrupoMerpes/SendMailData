@@ -2331,3 +2331,29 @@
 2026-03-13 16:55:16,859 - ERROR - Error al cargar mapeo de correos: 'Correos'
 2026-03-13 16:55:16,859 - INFO - Se generaron 0 reportes mensuales
 2026-03-13 16:55:16,860 - INFO - No se encontraron Clientes con correos definidos para generar reportes
+2026-03-15 20:28:28,617 - INFO - === INICIANDO MONITOREO DE CAMPAÑAS ===
+2026-03-15 20:28:28,617 - INFO - Leyendo datos del archivo consolidado de horas soporte
+2026-03-15 20:28:28,637 - INFO - Columnas mapeadas: {}
+2026-03-15 20:28:28,639 - INFO - Columna 'HORAS_MERPES_ASIGNADAS' creada con valor por defecto: 0
+2026-03-15 20:28:28,639 - INFO - Columna 'HORAS_MERPES_CONSUMIDAS' creada con valor por defecto: 0
+2026-03-15 20:28:28,639 - INFO - Columna 'HORAS_ZOFTINIUM_ASIGNADAS' creada con valor por defecto: 0
+2026-03-15 20:28:28,640 - INFO - Columna 'HORAS_ZOFTINIUM_CONSUMIDAS' creada con valor por defecto: 0
+2026-03-15 20:28:28,640 - INFO - Columna 'PIEZAS_DISEÑO_ASIGNADAS' creada con valor por defecto: 0
+2026-03-15 20:28:28,641 - INFO - Columna 'PIEZAS_DISEÑO_CONSUMIDAS' creada con valor por defecto: 0
+2026-03-15 20:28:28,643 - INFO - Datos leídos exitosamente. Total Clientes: 44
+2026-03-15 20:28:28,643 - ERROR - Error al cargar mapeo de correos: 'Correos'
+2026-03-15 20:28:28,643 - INFO - Se generaron 0 reportes mensuales
+2026-03-15 20:28:28,643 - INFO - No se encontraron Clientes con correos definidos para generar reportes
+2026-03-15 20:34:11,025 - INFO - Iniciando lectura de datos...
+2026-03-15 20:34:11,051 - INFO - Procesados 43 clientes exitosamente.
+2026-03-15 20:34:11,052 - INFO - Cargados 1 destinatarios.
+2026-03-15 20:34:11,053 - INFO - Enviando reporte a Apex CO (11.0% consumo Merpes)
+2026-03-15 20:39:29,773 - INFO - Iniciando lectura de datos...
+2026-03-15 20:39:29,799 - INFO - Procesados 43 clientes exitosamente.
+2026-03-15 20:39:29,801 - INFO - Cargados 2 destinatarios.
+2026-03-15 20:39:29,802 - INFO - Enviando reporte a Apex CO (11.0% consumo Merpes)
+2026-03-15 20:39:29,802 - INFO - Enviando reporte a Apex MX (23.3% consumo Merpes)
+2026-03-15 20:44:06,351 - INFO - Intentando enviar email real a Apex CO...
+2026-03-15 20:44:09,521 - INFO - ✅ Email enviado correctamente a Apex CO
+2026-03-15 20:44:09,523 - INFO - Intentando enviar email real a Apex MX...
+2026-03-15 20:44:12,707 - INFO - ✅ Email enviado correctamente a Apex MX
