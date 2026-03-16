@@ -20,23 +20,34 @@
         box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       }
       .content {
-        padding: 30px 25px;
+        padding: 0px 25px 30px 25px;
         text-align: center;
       }
 
-      /* Badge Cliente */
-      .cliente-badge {
-        background-color: #1abc9c;
-        color: #ffffff;
-        padding: 6px 18px;
-        border-radius: 20px;
-        font-weight: bold;
-        font-size: 14px;
-        display: inline-block;
-        margin-bottom: 20px;
+      /* Estilo para el contenedor del Título */
+      .titulo-container {
+        width: 100%;
+        max-width: 500px;
+        margin: 10px auto 0 auto;
+        /* Usamos la imagen como fondo para que el texto viva "dentro" */
+        background-image: url("data:image/png;base64,{{ imagenes.titulo }}");
+        background-size: contain;
+        background-repeat: no-repeat;
+        background-position: center;
       }
 
-      /* Círculos de Progreso */
+      /* Texto del Cliente */
+      .cliente-texto {
+        padding-top: 105px; /* Ajusta este valor para centrar el nombre verticalmente sobre el verde */
+        padding-bottom: 25px;
+        color: #1b1b1b;
+        font-weight: 800;
+        font-size: 19px;
+        text-transform: uppercase;
+        letter-spacing: 0.5px;
+      }
+
+      /* Círculos de Progreso (Verdes) */
       .circle-container {
         margin: 20px 0;
       }
@@ -50,7 +61,6 @@
         line-height: 85px;
         margin: 0 auto;
         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        /* Color verde por defecto para todos */
         background-color: #2ecc71;
       }
       .label {
@@ -125,12 +135,9 @@
 
       <tr>
         <td class="content">
-          <img
-            src="data:image/png;base64,{{ imagenes.titulo }}"
-            width="280"
-            style="margin-bottom: 10px"
-          /><br />
-          <div class="cliente-badge">{{ cliente }}</div>
+          <div class="titulo-container">
+            <div class="cliente-texto">{{ cliente }}</div>
+          </div>
 
           <table width="100%" class="circle-container">
             <tr>
