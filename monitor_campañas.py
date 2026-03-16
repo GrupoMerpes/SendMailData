@@ -169,50 +169,61 @@ class MonitorCampañas:
     # -----------------------------------
 
     def generar_html(self, cliente: str, datos: pd.Series):
-
         try:
+            # 1. Cálculos de porcentajes y métricas
+            merpes_meta = datos.get('H_M_A', 0)
+            merpes_uso = datos.get('H_M_C', 0)
+            merpes_pct = int((merpes_uso / merpes_meta) * 100) if merpes_meta > 0 else 0
 
-            with open("email_template.html", encoding="utf-8") as f:
+            zoftinium_meta = datos.get('H_Z_A', 0)
+            zoftinium_uso = datos.get('H_Z_C', 0)
+            zoftinium_pct = int((zoftinium_uso / zoftinium_meta) * 100) if zoftinium_meta > 0 else 0
 
-                template = Template(f.read())
+            diseno_meta = datos.get('P_D_A', 0)
+            diseno_uso = datos.get('P_D_C', 0)
+            diseno_pct = int((diseno_uso / diseno_meta) * 100) if diseno_meta > 0 else 0
 
+            # 2. Lógica de Recomendaciones (Recuperada del script original)
+            recoms = [f"Tu consumo actual en Merpes es del {merpes_pct}%."]
+            
+            if merpes_pct > 85:
+                recoms.append("⚠️ ¡Alerta! Has consumido más del 85% de tus horas Merpes.")
+            
+            piezas_restantes = diseno_meta - diseno_uso
+            if piezas_restantes <= 2:
+                recoms.append(f"⚠️ Te quedan solo {int(piezas_restantes)} piezas de diseño disponibles.")
+            
+            recoms.append("Recuerda que puedes solicitar ampliaciones antes de finalizar el mes.")
+
+            # 3. Preparar imágenes
             imagenes = {
-
                 "encabezado": self.img_base64("ENCABEZADO.png"),
                 "footer": self.img_base64("FOOTER.png"),
                 "titulo": self.img_base64("TITULO.png")
             }
 
-            merpes_pct = int((datos['H_M_C'] / datos['H_M_A']) * 100) if datos['H_M_A'] else 0
-            zoftinium_pct = int((datos['H_Z_C'] / datos['H_Z_A']) * 100) if datos['H_Z_A'] else 0
-            diseño_pct = int((datos['P_D_C'] / datos['P_D_A']) * 100) if datos['P_D_A'] else 0
+            # 4. Renderizar Template
+            with open("email_template.html", encoding="utf-8") as f:
+                template = Template(f.read())
 
-            html = template.render(
-
+            return template.render(
                 cliente=cliente,
-                area="Campaña",
-
-                merpes=datos['H_M_C'],
-                merpes_meta=datos['H_M_A'],
+                area="Servicios Mensuales",
+                merpes=round(merpes_uso, 1),
+                merpes_meta=int(merpes_meta),
                 merpes_pct=merpes_pct,
-
-                zoftinium=datos['H_Z_C'],
-                zoftinium_meta=datos['H_Z_A'],
+                zoftinium=round(zoftinium_uso, 1),
+                zoftinium_meta=int(zoftinium_meta),
                 zoftinium_pct=zoftinium_pct,
-
-                diseño=datos['P_D_C'],
-                diseño_meta=datos['P_D_A'],
-                diseño_pct=diseño_pct,
-
+                diseño=int(diseno_uso),
+                diseño_meta=int(diseno_meta),
+                diseño_pct=diseno_pct,
+                recomendaciones=recoms,
                 imagenes=imagenes
             )
 
-            return html
-
         except Exception as e:
-
             logging.error(f"Error generando HTML: {e}")
-
             return None
 
     # -----------------------------------

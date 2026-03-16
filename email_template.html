@@ -6,185 +6,212 @@
       body {
         margin: 0;
         padding: 0;
-        background-color: #f5f5f5;
-        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background-color: #f4f7f9;
+        font-family: "Segoe UI", Arial, sans-serif;
       }
-      .wrapper {
-        width: 100%;
-        table-layout: fixed;
-        background-color: #f5f5f5;
-      }
-      .main-container {
+      .main-table {
         width: 100%;
         max-width: 600px;
-        margin: 0 auto;
+        margin: 20px auto;
         background-color: #ffffff;
         border-spacing: 0;
-        color: #333333;
-      }
-      .header-img {
-        width: 100%;
-        display: block;
-        border: 0;
+        border-radius: 15px;
+        overflow: hidden;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
       }
       .content {
-        padding: 30px 20px;
+        padding: 30px 25px;
         text-align: center;
       }
 
+      /* Badge Cliente */
       .cliente-badge {
-        background-color: #19c6a3;
+        background-color: #1abc9c;
         color: #ffffff;
-        padding: 8px 25px;
-        border-radius: 25px;
+        padding: 6px 18px;
+        border-radius: 20px;
         font-weight: bold;
-        font-size: 16px;
+        font-size: 14px;
         display: inline-block;
-        text-transform: uppercase;
         margin-bottom: 20px;
       }
 
-      /* Estilos de los círculos */
+      /* Círculos de Progreso */
+      .circle-container {
+        margin: 20px 0;
+      }
       .circle {
-        width: 80px;
-        height: 80px;
-        border-radius: 40px;
+        width: 85px;
+        height: 85px;
+        border-radius: 50%;
         color: #ffffff;
         font-weight: bold;
         font-size: 18px;
-        text-align: center;
+        line-height: 85px;
         margin: 0 auto;
+        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
       }
-      .circle-text {
-        line-height: 80px;
+      .label {
+        font-size: 11px;
+        font-weight: bold;
+        color: #7f8c8d;
+        margin-bottom: 8px;
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
 
       .bg-diseno {
-        background-color: #ff5722;
+        background-color: #e67e22;
       }
       .bg-zoftinium {
-        background-color: #2196f3;
+        background-color: #3498db;
       }
       .bg-merpes {
-        background-color: #4caf50;
+        background-color: #2ecc71;
       }
 
-      .label {
-        font-size: 12px;
-        font-weight: bold;
-        color: #777777;
-        margin-bottom: 8px;
-        text-transform: uppercase;
-      }
-      .stats {
-        font-size: 13px;
-        color: #555555;
-        margin-top: 8px;
-      }
-
-      .footer {
+      /* Tabla de Detalles */
+      .details-container {
         background-color: #2c3e50;
-        padding: 20px;
-        text-align: center;
+        border-radius: 12px;
+        margin-top: 25px;
+        padding: 15px;
+      }
+      .details-table {
+        width: 100%;
+        border-collapse: collapse;
         color: #ffffff;
+      }
+      .details-table th {
+        color: #1abc9c;
+        font-size: 11px;
+        text-transform: uppercase;
+        padding: 10px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      }
+      .details-table td {
+        padding: 12px 10px;
+        font-size: 13px;
+        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      }
+
+      /* Recomendaciones */
+      .rec-box {
+        background-color: #fdfdfd;
+        border-left: 4px solid #1abc9c;
+        padding: 20px;
+        margin-top: 25px;
+        text-align: left;
+        border-radius: 0 8px 8px 0;
+      }
+      .rec-title {
+        color: #2c3e50;
+        font-weight: bold;
         font-size: 14px;
+        margin-bottom: 8px;
+        display: block;
+      }
+      .rec-item {
+        font-size: 12.5px;
+        color: #576574;
+        margin-bottom: 6px;
+        line-height: 1.4;
       }
     </style>
   </head>
   <body>
-    <table class="wrapper">
+    <table class="main-table" align="center">
       <tr>
-        <td align="center">
-          <table class="main-container">
+        <td>
+          <img
+            src="data:image/png;base64,{{ imagenes.encabezado }}"
+            width="100%"
+            style="display: block"
+          />
+        </td>
+      </tr>
+
+      <tr>
+        <td class="content">
+          <img
+            src="data:image/png;base64,{{ imagenes.titulo }}"
+            width="280"
+            style="margin-bottom: 10px"
+          /><br />
+          <div class="cliente-badge">{{ cliente }}</div>
+
+          <table width="100%" class="circle-container">
             <tr>
-              <td>
-                <img
-                  src="data:image/png;base64,{{ imagenes.encabezado }}"
-                  class="header-img"
-                />
+              <td align="center" width="33%">
+                <div class="label">Diseño</div>
+                <div class="circle bg-diseno">{{ diseño_pct }}%</div>
               </td>
-            </tr>
-
-            <tr>
-              <td class="content">
-                <img
-                  src="data:image/png;base64,{{ imagenes.titulo }}"
-                  width="300"
-                  style="margin-bottom: 15px"
-                />
-                <br />
-                <div class="cliente-badge">{{ cliente }} - {{ area }}</div>
-                <p style="color: #888; font-size: 14px; margin-top: 15px">
-                  Reporte actualizado del consumo mensual de servicios
-                </p>
+              <td align="center" width="33%">
+                <div class="label">Zoftinium</div>
+                <div class="circle bg-zoftinium">{{ zoftinium_pct }}%</div>
               </td>
-            </tr>
-
-            <tr>
-              <td style="padding: 0 20px 40px 20px">
-                <table width="100%" cellspacing="0" cellpadding="0">
-                  <tr>
-                    <td align="center" width="33%">
-                      <div class="label">Diseño</div>
-                      <table
-                        cellspacing="0"
-                        cellpadding="0"
-                        class="circle bg-diseno"
-                      >
-                        <tr>
-                          <td class="circle-text">{{ diseño_pct }}%</td>
-                        </tr>
-                      </table>
-                      <div class="stats">
-                        <strong>{{ diseño }}</strong> / {{ diseño_meta }}
-                      </div>
-                    </td>
-
-                    <td align="center" width="33%">
-                      <div class="label">Zoftinium</div>
-                      <table
-                        cellspacing="0"
-                        cellpadding="0"
-                        class="circle bg-zoftinium"
-                      >
-                        <tr>
-                          <td class="circle-text">{{ zoftinium_pct }}%</td>
-                        </tr>
-                      </table>
-                      <div class="stats">
-                        <strong>{{ zoftinium }}</strong> / {{ zoftinium_meta }}
-                      </div>
-                    </td>
-
-                    <td align="center" width="33%">
-                      <div class="label">Merpes</div>
-                      <table
-                        cellspacing="0"
-                        cellpadding="0"
-                        class="circle bg-merpes"
-                      >
-                        <tr>
-                          <td class="circle-text">{{ merpes_pct }}%</td>
-                        </tr>
-                      </table>
-                      <div class="stats">
-                        <strong>{{ merpes }}</strong> / {{ merpes_meta }}
-                      </div>
-                    </td>
-                  </tr>
-                </table>
-              </td>
-            </tr>
-
-            <tr>
-              <td>
-                <img
-                  src="data:image/png;base64,{{ imagenes.footer }}"
-                  class="header-img"
-                />
+              <td align="center" width="33%">
+                <div class="label">Merpes</div>
+                <div class="circle bg-merpes">{{ merpes_pct }}%</div>
               </td>
             </tr>
           </table>
+
+          <div class="details-container">
+            <table class="details-table">
+              <thead>
+                <tr>
+                  <th align="left">Categoría</th>
+                  <th>Meta</th>
+                  <th>Uso</th>
+                  <th>Restante</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td align="left">Diseño (Piezas)</td>
+                  <td align="center">{{ diseño_meta }}</td>
+                  <td align="center">{{ diseño }}</td>
+                  <td align="center" style="color: #1abc9c; font-weight: bold">
+                    {{ diseño_meta - diseño }}
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left">Zoftinium (Horas)</td>
+                  <td align="center">{{ zoftinium_meta }}</td>
+                  <td align="center">{{ zoftinium }}</td>
+                  <td align="center" style="color: #1abc9c; font-weight: bold">
+                    {{ (zoftinium_meta - zoftinium)|round(1) }}
+                  </td>
+                </tr>
+                <tr>
+                  <td align="left">Merpes (Horas)</td>
+                  <td align="center">{{ merpes_meta }}</td>
+                  <td align="center">{{ merpes }}</td>
+                  <td align="center" style="color: #1abc9c; font-weight: bold">
+                    {{ (merpes_meta - merpes)|round(1) }}
+                  </td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+
+          <div class="rec-box">
+            <span class="rec-title">💡 Recomendaciones de Campaña:</span>
+            {% for rec in recomendaciones %}
+            <div class="rec-item">• {{ rec }}</div>
+            {% endfor %}
+          </div>
+        </td>
+      </tr>
+
+      <tr>
+        <td>
+          <img
+            src="data:image/png;base64,{{ imagenes.footer }}"
+            width="100%"
+            style="display: block"
+          />
         </td>
       </tr>
     </table>
