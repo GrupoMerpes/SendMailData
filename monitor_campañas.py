@@ -89,7 +89,15 @@ class MonitorCampañas:
                 'Consumidas.2': 'P_D_C',
 
                 'Unnamed: 11': 'Correos',
-                'Correos': 'Correos'
+                'Correos': 'Correos',
+
+                # Columna de campaña/área del cliente
+                'Campaña / Área': 'Campaña',
+                'Campaña/Área': 'Campaña',
+                'Campaña / Area': 'Campaña',
+                'Campaña': 'Campaña',
+                'Area': 'Campaña',
+                'Área': 'Campaña',
             }
 
             df = df.rename(columns=mapeo)
@@ -122,6 +130,10 @@ class MonitorCampañas:
     # -----------------------------------
 
     def cargar_mapeo_correos(self):
+        """
+        Construye self.campañas_correos como lista de dicts, uno por fila del Excel.
+        Permite manejar clientes con múltiples campañas correctamente.
+        """
 
         if self.df_consumo is None:
             return
@@ -134,9 +146,17 @@ class MonitorCampañas:
         if not col_correo:
             return
 
-        for _, row in self.df_consumo[self.df_consumo[col_correo].notna()].iterrows():
+        # Lista de registros en lugar de dict por cliente
+        self.campañas_correos = []
+
+        for idx, row in self.df_consumo[self.df_consumo[col_correo].notna()].iterrows():
 
             cliente = str(row['Cliente']).strip()
+
+            # Leer campaña desde columna mapeada; fallback vacío
+            campaña = ""
+            if 'Campaña' in self.df_consumo.columns and pd.notna(row.get('Campaña')):
+                campaña = str(row['Campaña']).strip()
 
             mail_str = str(row[col_correo]).strip()
 
@@ -147,7 +167,12 @@ class MonitorCampañas:
             ]
 
             if mails:
-                self.campañas_correos[cliente] = mails
+                self.campañas_correos.append({
+                    "cliente": cliente,
+                    "campaña": campaña,
+                    "correos": mails,
+                    "idx": idx
+                })
 
     # -----------------------------------
     # CARGAR IMAGEN BASE64
@@ -168,7 +193,7 @@ class MonitorCampañas:
     # GENERAR HTML
     # -----------------------------------
 
-    def generar_html(self, cliente: str, datos: pd.Series):
+    def generar_html(self, cliente: str, datos: pd.Series, area: str = ""):
         try:
             # 1. Cálculos de porcentajes y métricas
             merpes_meta = datos.get('H_M_A', 0)
@@ -183,23 +208,25 @@ class MonitorCampañas:
             diseno_uso = datos.get('P_D_C', 0)
             diseno_pct = int((diseno_uso / diseno_meta) * 100) if diseno_meta > 0 else 0
 
-            # 2. Lógica de Recomendaciones (Recuperada del script original)
+            # 2. Lógica de Recomendaciones
             recoms = [f"Tu consumo actual en Merpes es del {merpes_pct}%."]
-            
+
             if merpes_pct > 85:
                 recoms.append("⚠️ ¡Alerta! Has consumido más del 85% de tus horas Merpes.")
-            
+
             piezas_restantes = diseno_meta - diseno_uso
             if piezas_restantes <= 2:
                 recoms.append(f"⚠️ Te quedan solo {int(piezas_restantes)} piezas de diseño disponibles.")
-            
+
             recoms.append("Recuerda que puedes solicitar ampliaciones antes de finalizar el mes.")
 
             # 3. Preparar imágenes
             imagenes = {
                 "encabezado": self.img_base64("ENCABEZADO.png"),
                 "footer": self.img_base64("FOOTER.png"),
-                "titulo": self.img_base64("TITULO.png")
+                "titulo": self.img_base64("TITULO.png"),
+                "icono1": self.img_base64("ICONO1.png"),
+                "icono2": self.img_base64("ICONO2.png"),
             }
 
             # 4. Renderizar Template
@@ -208,7 +235,7 @@ class MonitorCampañas:
 
             return template.render(
                 cliente=cliente,
-                area="Servicios Mensuales",
+                area=area,  # campaña real leída del Excel
                 merpes=round(merpes_uso, 1),
                 merpes_meta=int(merpes_meta),
                 merpes_pct=merpes_pct,
@@ -230,11 +257,11 @@ class MonitorCampañas:
     # ENVIAR EMAIL
     # -----------------------------------
 
-    def enviar_email_real(self, destinatarios: List[str], cliente: str, datos: pd.Series):
+    def enviar_email_real(self, destinatarios: List[str], cliente: str, datos: pd.Series, area: str = ""):
 
         try:
 
-            html = self.generar_html(cliente, datos)
+            html = self.generar_html(cliente, datos, area=area)
 
             msg = MIMEMultipart("alternative")
 
@@ -280,24 +307,30 @@ class MonitorCampañas:
         if not self.campañas_correos:
             return
 
-        for cliente, correos in self.campañas_correos.items():
+        # Iterar por cada registro (una fila = un cliente + campaña)
+        for registro in self.campañas_correos:
 
-            fila = self.df_consumo[
-                self.df_consumo['Cliente'] == cliente
-            ].iloc[0]
+            cliente  = registro["cliente"]
+            campaña  = registro["campaña"]
+            correos  = registro["correos"]
+            idx      = registro["idx"]
 
-            logging.info(f"Enviando reporte a {cliente}...")
+            # Obtener la fila exacta del Excel por índice
+            fila = self.df_consumo.loc[idx]
+
+            logging.info(f"Enviando reporte a {cliente} - {campaña}...")
 
             exito = self.enviar_email_real(
                 correos,
                 cliente,
-                fila
+                fila,
+                area=campaña
             )
 
             if exito:
 
                 logging.info(
-                    f"✅ Email enviado correctamente a {cliente}"
+                    f"✅ Email enviado correctamente a {cliente} ({campaña})"
                 )
 
     # -----------------------------------
