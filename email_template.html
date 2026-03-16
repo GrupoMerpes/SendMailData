@@ -57,7 +57,6 @@
         font-size: 18px;
         line-height: 85px;
         margin: 0 auto;
-        box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
         background-color: #2ecc71;
       }
       .label {
@@ -66,72 +65,77 @@
         color: #7f8c8d;
         margin-bottom: 8px;
         text-transform: uppercase;
-        letter-spacing: 1px;
       }
 
-      /* Tabla de Detalles */
-      .details-container {
-        background-color: #2c3e50;
+      /* SECCIÓN TABLA RECURSOS - FONDO OSCURO */
+      .recursos-wrapper {
+        background-color: #2d2c2c;
         border-radius: 12px;
         margin-top: 25px;
-        padding: 15px;
+        overflow: hidden;
       }
-      .details-table {
+      .recursos-header-box {
+        padding: 20px 0 10px 0;
+        text-align: center;
+      }
+      /* CLASE CRÍTICA: Controla el tamaño del icono */
+      .recursos-icon-header {
+        width: 35px;
+        height: auto;
+        display: inline-block;
+      }
+      .recursos-table {
         width: 100%;
         border-collapse: collapse;
+        font-size: 12px;
         color: #ffffff;
       }
-      .details-table th {
+      .recursos-table th {
+        background-color: #1f1f1f;
         color: #1abc9c;
-        font-size: 11px;
+        font-size: 10px;
         text-transform: uppercase;
-        padding: 10px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+        padding: 12px 5px;
+        border: 1px solid #3d3d3d;
       }
-      .details-table td {
-        padding: 12px 10px;
-        font-size: 13px;
-        border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+      .recursos-table td {
+        padding: 10px;
+        border: 1px solid #3d3d3d;
+        text-align: center;
+      }
+      .td-disponible {
+        color: #1abc9c;
+        font-weight: 600;
       }
 
-      /* SECCIÓN RECOMENDACIONES ESTILO DARK */
+      /* SECCIÓN RECOMENDACIONES - FONDO BLANCO */
       .rec-dark-box {
-        background-color: #2d2c2c;
+        background-color: #ffffff;
         border-radius: 12px;
         margin-top: 25px;
         padding: 20px;
         text-align: left;
+        border: 1px solid #e8e8e8;
         border-bottom: 4px solid #1abc9c;
       }
       .rec-header {
         text-align: center;
         margin-bottom: 15px;
-        border-bottom: 1px solid #444;
+        border-bottom: 1px solid #e0e0e0;
         padding-bottom: 10px;
       }
-      .rec-icon {
-        width: 35px;
-        height: auto;
-        vertical-align: middle;
-        margin-bottom: 5px;
-      }
       .rec-title-text {
-        color: #ffffff;
+        color: #1b1b1b;
         font-weight: bold;
-        font-size: 15px;
+        font-size: 14px;
         display: block;
         text-transform: uppercase;
-        letter-spacing: 1px;
-      }
-      .rec-list {
-        margin: 0;
-        padding: 0;
+        margin-top: 5px;
       }
       .rec-item-new {
         font-size: 12.5px;
-        color: #e0e0e0;
-        margin-bottom: 12px;
-        line-height: 1.5;
+        color: #333;
+        margin-bottom: 10px;
         display: table;
         width: 100%;
       }
@@ -139,7 +143,6 @@
         display: table-cell;
         width: 20px;
         color: #1abc9c;
-        font-size: 14px;
         vertical-align: top;
       }
       .rec-text {
@@ -183,39 +186,38 @@
             </tr>
           </table>
 
-          <div class="details-container">
-            <table class="details-table">
+          <div class="recursos-wrapper">
+            <div class="recursos-header-box">
+              <img src="cid:icono1" style="width: 35px; height: auto" />
+            </div>
+            <table class="recursos-table">
               <thead>
                 <tr>
-                  <th align="left">Categoría</th>
-                  <th>Meta</th>
-                  <th>Uso</th>
-                  <th>Restante</th>
+                  <th>Piezas diseño</th>
+                  <th>Soporte Zoftinium</th>
+                  <th>Soporte Grupo Merpes</th>
                 </tr>
               </thead>
               <tbody>
                 <tr>
-                  <td align="left">Diseño (Piezas)</td>
-                  <td align="center">{{ diseño_meta }}</td>
-                  <td align="center">{{ diseño }}</td>
-                  <td align="center" style="color: #1abc9c; font-weight: bold">
-                    {{ diseño_meta - diseño }}
-                  </td>
+                  <td>Mensuales: <strong>{{ diseño_meta }}</strong></td>
+                  <td>Mensuales: <strong>{{ zoftinium_meta }}</strong></td>
+                  <td>Mensuales: <strong>{{ merpes_meta }}</strong></td>
                 </tr>
                 <tr>
-                  <td align="left">Zoftinium (Horas)</td>
-                  <td align="center">{{ zoftinium_meta }}</td>
-                  <td align="center">{{ zoftinium }}</td>
-                  <td align="center" style="color: #1abc9c; font-weight: bold">
-                    {{ (zoftinium_meta - zoftinium)|round(1) }}
-                  </td>
+                  <td>Consumidas: <strong>{{ diseño }}</strong></td>
+                  <td>Consumidas: <strong>{{ zoftinium }}</strong></td>
+                  <td>Consumidas: <strong>{{ merpes }}</strong></td>
                 </tr>
                 <tr>
-                  <td align="left">Merpes (Horas)</td>
-                  <td align="center">{{ merpes_meta }}</td>
-                  <td align="center">{{ merpes }}</td>
-                  <td align="center" style="color: #1abc9c; font-weight: bold">
-                    {{ (merpes_meta - merpes)|round(1) }}
+                  <td class="td-disponible">
+                    Disponibles: {{ diseño_meta - diseño }}
+                  </td>
+                  <td class="td-disponible">
+                    Disponibles: {{ (zoftinium_meta - zoftinium)|round(1) }}
+                  </td>
+                  <td class="td-disponible">
+                    Disponibles: {{ (merpes_meta - merpes)|round(1) }}
                   </td>
                 </tr>
               </tbody>
@@ -224,7 +226,7 @@
 
           <div class="rec-dark-box">
             <div class="rec-header">
-              <img src="ICONO1.png" class="rec-icon" alt="Icono" />
+              <img src="cid:icono2" style="width: 35px; height: auto" />
               <span class="rec-title-text">Recomendaciones</span>
             </div>
 
@@ -248,20 +250,6 @@
                 <span class="rec-text"
                   >Utiliza los recursos disponibles para que tu cliente cuente
                   con un excelente servicio.</span
-                >
-              </div>
-              <div class="rec-item-new">
-                <span class="rec-bullet">▶</span>
-                <span class="rec-text"
-                  >No mal gastes las piezas gráficas, sácales el mayor
-                  provecho.</span
-                >
-              </div>
-              <div class="rec-item-new">
-                <span class="rec-bullet">▶</span>
-                <span class="rec-text"
-                  >Verifica que los cargues de data que hagas a Kupaa sean los
-                  correctos, así mitigas el consumo de soporte.</span
                 >
               </div>
             </div>
