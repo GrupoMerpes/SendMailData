@@ -24,21 +24,18 @@
         text-align: center;
       }
 
-      /* Estilo para el contenedor del Título */
+      /* Título con Imagen de Fondo */
       .titulo-container {
         width: 100%;
         max-width: 500px;
         margin: 10px auto 0 auto;
-        /* Usamos la imagen como fondo para que el texto viva "dentro" */
         background-image: url("data:image/png;base64,{{ imagenes.titulo }}");
         background-size: contain;
         background-repeat: no-repeat;
         background-position: center;
       }
-
-      /* Texto del Cliente */
       .cliente-texto {
-        padding-top: 105px; /* Ajusta este valor para centrar el nombre verticalmente sobre el verde */
+        padding-top: 105px;
         padding-bottom: 25px;
         color: #1b1b1b;
         font-weight: 800;
@@ -47,7 +44,7 @@
         letter-spacing: 0.5px;
       }
 
-      /* Círculos de Progreso (Verdes) */
+      /* Círculos Verdes */
       .circle-container {
         margin: 20px 0;
       }
@@ -97,27 +94,57 @@
         border-bottom: 1px solid rgba(255, 255, 255, 0.05);
       }
 
-      /* Recomendaciones */
-      .rec-box {
-        background-color: #fdfdfd;
-        border-left: 4px solid #1abc9c;
-        padding: 20px;
+      /* SECCIÓN RECOMENDACIONES ESTILO DARK */
+      .rec-dark-box {
+        background-color: #2d2c2c;
+        border-radius: 12px;
         margin-top: 25px;
+        padding: 20px;
         text-align: left;
-        border-radius: 0 8px 8px 0;
+        border-bottom: 4px solid #1abc9c;
       }
-      .rec-title {
-        color: #2c3e50;
+      .rec-header {
+        text-align: center;
+        margin-bottom: 15px;
+        border-bottom: 1px solid #444;
+        padding-bottom: 10px;
+      }
+      .rec-icon {
+        width: 35px;
+        height: auto;
+        vertical-align: middle;
+        margin-bottom: 5px;
+      }
+      .rec-title-text {
+        color: #ffffff;
         font-weight: bold;
-        font-size: 14px;
-        margin-bottom: 8px;
+        font-size: 15px;
         display: block;
+        text-transform: uppercase;
+        letter-spacing: 1px;
       }
-      .rec-item {
+      .rec-list {
+        margin: 0;
+        padding: 0;
+      }
+      .rec-item-new {
         font-size: 12.5px;
-        color: #576574;
-        margin-bottom: 6px;
-        line-height: 1.4;
+        color: #e0e0e0;
+        margin-bottom: 12px;
+        line-height: 1.5;
+        display: table;
+        width: 100%;
+      }
+      .rec-bullet {
+        display: table-cell;
+        width: 20px;
+        color: #1abc9c;
+        font-size: 14px;
+        vertical-align: top;
+      }
+      .rec-text {
+        display: table-cell;
+        vertical-align: top;
       }
     </style>
   </head>
@@ -195,11 +222,49 @@
             </table>
           </div>
 
-          <div class="rec-box">
-            <span class="rec-title">💡 Recomendaciones de Campaña:</span>
-            {% for rec in recomendaciones %}
-            <div class="rec-item">• {{ rec }}</div>
-            {% endfor %}
+          <div class="rec-dark-box">
+            <div class="rec-header">
+              <img src="ICONO1.png" class="rec-icon" alt="Icono" />
+              <span class="rec-title-text">Recomendaciones</span>
+            </div>
+
+            <div class="rec-list">
+              <div class="rec-item-new">
+                <span class="rec-bullet">▶</span>
+                <span class="rec-text"
+                  >Coordina con el equipo la optimización de las horas
+                  disponibles mes a mes.</span
+                >
+              </div>
+              <div class="rec-item-new">
+                <span class="rec-bullet">▶</span>
+                <span class="rec-text"
+                  >Planifica los próximos requerimientos para que no superes la
+                  capacidad disponible.</span
+                >
+              </div>
+              <div class="rec-item-new">
+                <span class="rec-bullet">▶</span>
+                <span class="rec-text"
+                  >Utiliza los recursos disponibles para que tu cliente cuente
+                  con un excelente servicio.</span
+                >
+              </div>
+              <div class="rec-item-new">
+                <span class="rec-bullet">▶</span>
+                <span class="rec-text"
+                  >No mal gastes las piezas gráficas, sácales el mayor
+                  provecho.</span
+                >
+              </div>
+              <div class="rec-item-new">
+                <span class="rec-bullet">▶</span>
+                <span class="rec-text"
+                  >Verifica que los cargues de data que hagas a Kupaa sean los
+                  correctos, así mitigas el consumo de soporte.</span
+                >
+              </div>
+            </div>
           </div>
         </td>
       </tr>
